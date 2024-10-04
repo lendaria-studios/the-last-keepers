@@ -34,3 +34,8 @@ Pergaminho com as informações
 ## Mundo:
 
 Floresta pegando fogo em um cenário futurista. 
+
+## Referências:
+
+Música: Welcome to the jungle, Blinding Lights.
+Filmes: Harry Potter e Animais Fantásticos.
