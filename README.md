@@ -39,3 +39,7 @@ Floresta pegando fogo em um cenário futurista.
 
 Música: Welcome to the jungle, Blinding Lights.
 Filmes: Harry Potter e Animais Fantásticos.
+
+## Fontes de receita:
+
+O jogador terá 3 opções de varinha. Duas delas darão danos aos lacaios e a outra varinha será paga e mata o lacaio.
