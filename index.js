@@ -2,6 +2,9 @@ import config from './config.js'
 import abertura from './abertura.js'
 import sala from './sala.js'
 
+import abertura from './abertura.js'
+import sala from './sala.js'
+
 class Game extends Phaser.Game {
   constructor () {
     super(config)
