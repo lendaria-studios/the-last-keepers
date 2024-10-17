@@ -4,42 +4,40 @@ projeto do semestre 2024.2
 
 # Premissa:
 
-A Amazônia está enfrentando uma devastação sem precedentes devido 
-a incêndios florestais causados pelo devorador da floresta, ZHARAK, que se alimenta do poder vital da floresta.
-
-Os elementos da natureza estão em desarmonia, a fauna e a flora lutam para sobreviver em meio as chamas. 
-Duas jovens bruxas foram escolhidas para restaurar o equilíbrio da Amazônia. Juntas, elas embarcam em uma aventura em busca de derrotar as forças malignas para restaurar a harmonia da floresta amazônica.
+Em um mundo mágico, o temido ser maligno conhecido como Zharak planeja ressurgir e dominar tudo e todos. Para isso, ele precisa recuperar o "Coração das Sombras", conhecido também como Obsidiana Negra, um artefato antigo escondido em um templo sagrado. Esse templo, cercado por florestas sombrias e cheio de armadilhas, é a única barreira entre o Zharak e seu poder absoluto.
+Os jogadores assumem o papel de Guardiões da Luz, herois destinados a impedir que o Zharak encontre o artefato. 
+Elas devem explorar o templo, enfrentando monstros que tentam impedi-las de completar sua missão. Ao longo da jornada, elas coletam elixires que fortalecem suas habilidades.
 
 # Universo:
 
 ## Personagens:
 
-Lumia Stormfeather (bruxa); Quinnie Grimroot (bruxa); Diretora: Benedita Dourado; Zharak (vilão); lacaios do vilão.
+Lumia Stormfeather (bruxa); Quinnie Grimroot (elfa); Zaphyra (maga); Zharak (vilão); lacaios do vilão.
 
 ## Objetivos:
 
-Encontrar a esmeralda (o coração da floresta) e salvar a Amazônia da destruição.
+Recuperar o coração das sombras, conhecido também como Obsidiana Negra e salvar o mundo da dominação.
 
 ## Regras:
 
-Não encostar nas chamas, fugir dos lacaios do Zharak e cada personagem tem 3 corações de vida, a cada vez que o lacaio toca no personagem ele perde uma. Para recuperar as vidas vão ter poções regenerativas.
+Cada personagem tem 3 corações de vida, a cada vez que o lacaio toca no personagem ele perde uma vida. Para recuperar as vidas vão ter poções regenerativas.
 
 
 ##  Acessórios:
 
-Ao começo do jogo vão ter 3 opções de varinhas para cada jogador escolher a sua.
+Ao começo do jogo vão ter 3 opções de cajados para cada jogador escolher a sua.
 Skins que podem ser adquiridas ao longo do jogo.
-Pergaminho com as informações
+Pergaminho com as informações.
 
 ## Mundo:
 
-Floresta pegando fogo em um cenário futurista. 
+floresta sobria. 
 
 ## Referências:
 
-Música: Welcome to the jungle, Blinding Lights.
-Filmes: Harry Potter e Animais Fantásticos.
+Música: Blinding Lights.
+Filmes: senhor dos aneis, aneis do poder, harry potter
 
 ## Fontes de receita:
 
-O jogador terá 3 opções de varinha. Duas delas darão danos aos lacaios e a outra varinha será paga e mata o lacaio.
+O jogador terá 3 opções de cajados. Duas delas darão danos aos lacaios e a outra será paga e mata o lacaio.
