@@ -4,15 +4,16 @@ projeto do semestre 2024.2
 
 # Premissa:
 
-Em um mundo mágico, o temido ser maligno conhecido como Zharak planeja ressurgir e dominar tudo e todos. Para isso, ele precisa recuperar o "Coração das Sombras", conhecido também como Obsidiana Negra, um artefato antigo escondido em um templo sagrado. Esse templo, cercado por florestas sombrias e cheio de armadilhas, é a única barreira entre o Zharak e seu poder absoluto.
-Os jogadores assumem o papel de Guardiões da Luz, herois destinados a impedir que o Zharak encontre o artefato. 
+Em um mundo mágico, o temido ser maligno conhecido como Magnus Frater planeja ressurgir e dominar tudo e todos. Para isso, ele precisa recuperar o "Coração das Sombras", conhecido também como Obsidiana Negra, um artefato antigo escondido em um templo sagrado. Esse templo, cercado por florestas sombrias e cheio de armadilhas, é a única barreira entre Magnus Frater e seu poder absoluto.
+Os jogadores assumem o papel de Guardiões da Luz, herois destinados a impedir que Magnus Frater encontre o artefato. 
 Elas devem explorar o templo, enfrentando monstros que tentam impedi-las de completar sua missão. Ao longo da jornada, elas coletam elixires que fortalecem suas habilidades.
 
 # Universo:
+Floresta com árvores secas e ruínas.
 
 ## Personagens:
 
-Lumia Stormfeather (bruxa); Quinnie Grimroot (elfa); Zaphyra (maga); Zharak (vilão); lacaios do vilão.
+Lumia Stormfeather (bruxa); Quinnie Grimroot (elfa); Zaphyra (maga); Magnus Frater (vilão); lacaios do vilão.
 
 ## Objetivos:
 
@@ -36,8 +37,9 @@ floresta sobria.
 ## Referências:
 
 Música: Blinding Lights.
-Filmes: senhor dos aneis, aneis do poder, harry potter
+Filmes/séries/livros: senhor dos aneis, aneis do poder, harry potter, The Owl House, 1984 (George Orwell)
+
 
 ## Fontes de receita:
 
-O jogador terá 3 opções de cajados. Duas delas darão danos aos lacaios e a outra será paga e mata o lacaio.
+O jogador terá 3 opções de cajados. Dois deles darão danos aos lacaios e a outra será paga e mata o lacaio.
