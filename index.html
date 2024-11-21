@@ -291,7 +291,24 @@ Voz do além: &quot;Me ajude Quinnie, pense bem, a glória será toda nossa...Ju
 [[Guardar os segredos para si e ajudar MAGNUS.]]
 
 
-</tw-passagedata><tw-passagedata pid="9" name="Ir para as ruínas." tags="" position="1100,900" size="100,100"></tw-passagedata><tw-passagedata pid="10" name="Compartilhar as descobertas com Lumia." tags="" position="975,1025" size="100,100"></tw-passagedata><tw-passagedata pid="11" name="Guardar os segredos para si e ajudar MAGNUS." tags="" position="1125,1025" size="100,100">Você guardou pra si o que descobriu. Lumia está sozinha agora e você precisa achar a Obsidiana Negra antes que ela descubra que é possível destruir.
+</tw-passagedata><tw-passagedata pid="9" name="Ir para as ruínas." tags="" position="1100,900" size="100,100"></tw-passagedata><tw-passagedata pid="10" name="Compartilhar as descobertas com Lumia." tags="" position="975,1025" size="100,100">Quinnie se teletransporta para as ruínas e conta suas descobertas, Lumia mostra os cartazes e as matérias que encontrou e fala que viu uma luz no andar de cima. Juntas as duas vão em busca do artefato.
+
+
+A caminho do andar de cima, as duas avistam uma parte mais escura e sombria nas ruínas e caminham em direção a ela
+
+Lumus - diz quinnie, Lumia repete o feitiço logo em seguida
+
+Ouviu isso?- diz Lumia
+
+O que?- Quinnie responde
+
+
+Um trasgo gigante atravessa uma das paredes  das ruínas e começa a ir em direção às bruxas.
+
+[[Correr o mais rápido possível]]
+
+[[Lançar um feitiço no monstro]]
+</tw-passagedata><tw-passagedata pid="11" name="Guardar os segredos para si e ajudar MAGNUS." tags="" position="1125,1025" size="100,100">Você guardou pra si o que descobriu. Lumia está sozinha agora e você precisa achar a Obsidiana Negra antes que ela descubra que é possível destruir.
 
 &quot;Espero que Lumia se junte a mim, ou temo ter que destruí-la.&quot;
 
@@ -299,7 +316,7 @@ Voz do além: &quot;Me ajude Quinnie, pense bem, a glória será toda nossa...Ju
 
 
 
-</tw-passagedata><tw-passagedata pid="12" name="Se teletransportar até as ruínas." tags="" position="1000,1150" size="100,100">Quinnie chega nas ruínas e encontra Lumia:
+</tw-passagedata><tw-passagedata pid="12" name="Se teletransportar até as ruínas." tags="" position="1125,1150" size="100,100">Quinnie chega nas ruínas e encontra Lumia:
 
 Lumia: &quot;então, descobriu algo?
 
@@ -318,10 +335,7 @@ audioObj.setAttribute(&#39;autoplay&#39;, &#39;true&#39;)
 document.body.appendChild(audioObj)
 [continued]
 
-[[dupla]] </tw-passagedata><tw-passagedata pid="14" name="dupla" tags="" position="625,175" size="100,100">{text input for: &#39;sala&#39;}
-
-
-[[escolha do jogador]] </tw-passagedata><tw-passagedata pid="15" name="escolha do jogador" tags="" position="625,300" size="100,100">[JavaScript]
+[[Escolha da sala]]</tw-passagedata><tw-passagedata pid="14" name="escolha do jogador" tags="" position="625,300" size="100,100">[JavaScript]
 window.setup = {}
 
 setup.loadError = function (oError) {
@@ -357,97 +371,163 @@ const iceServers = {
   ]
 }
 
-let midias
 navigator.mediaDevices.getUserMedia({ video: false, audio: true })
   .then((stream) =&gt; {
-    midias = stream
-    console.log(&#39;midias&#39;, midias)
+    setup.loadScript(&#39;https://cdn.socket.io/4.8.0/socket.io.min.js&#39;, () =&gt; {
+      let socket
+      if (window.location.host === &#39;feira-de-jogos.dev.br&#39;) {
+        socket = io({ path: &#39;/adcipt20242/socket.io/&#39; })
+      } else {
+        socket = io()
+      }
+
+      const sala = engine.state.get(&#39;sala&#39;)
+      console.log(&#39;sala&#39;, sala)
+
+      socket.on(&#39;connect&#39;, () =&gt; {
+        socket.emit(&#39;entrar-na-sala&#39;, sala)
+      })
+
+      socket.on(&#39;jogadores&#39;, (jogadores) =&gt; {
+        console.log(jogadores)
+        if (jogadores.segundo) {
+          if (jogadores.primeiro === socket.id) {
+            const remoteConnection = new RTCPeerConnection(iceServers)
+            const dadosJogo = remoteConnection.createDataChannel(&#39;dadosJogo&#39;, { negotiated: true, id: 0 })
+            console.log(&#39;remoteConnection&#39;, remoteConnection)
+            console.log(&#39;dadosJogo&#39;, dadosJogo)
+
+            remoteConnection.onicecandidate = function ({ candidate }) {
+              candidate &amp;&amp; socket.emit(&#39;candidate&#39;, sala, candidate)
+            }
+
+            remoteConnection.ontrack = function ({ streams: [stream] }) {
+              audio.srcObject = stream
+              console.log(&#39;audio.srcObject&#39;, audio.srcObject)
+            }
+
+            stream.getTracks()
+              .forEach((track) =&gt; remoteConnection.addTrack(track, stream))
+
+            socket.on(&#39;offer&#39;, (description) =&gt; {
+              remoteConnection.setRemoteDescription(description)
+                .then(() =&gt; remoteConnection.createAnswer())
+                .then((answer) =&gt; remoteConnection.setLocalDescription(answer))
+                .then(() =&gt; socket.emit(&#39;answer&#39;, sala, remoteConnection.localDescription))
+            })
+
+            socket.on(&#39;candidate&#39;, (candidate) =&gt; {
+              remoteConnection.addIceCandidate(candidate)
+            })
+          } else if (jogadores.segundo === socket.id) {
+            const localConnection = new RTCPeerConnection(iceServers)
+            const dadosJogo = localConnection.createDataChannel(&#39;dadosJogo&#39;, { negotiated: true, id: 0 })
+            console.log(&#39;localConnection&#39;, localConnection)
+            console.log(&#39;dadosJogo&#39;, dadosJogo)
+
+            localConnection.onicecandidate = function ({ candidate }) {
+              candidate &amp;&amp; socket.emit(&#39;candidate&#39;, sala, candidate)
+            }
+
+            localConnection.ontrack = function ({ streams: [stream] }) {
+              audio.srcObject = stream
+              console.log(&#39;audio.srcObject&#39;, audio.srcObject)
+            }
+
+            stream.getTracks()
+              .forEach((track) =&gt; localConnection.addTrack(track, stream))
+
+            localConnection.createOffer()
+              .then((offer) =&gt; localConnection.setLocalDescription(offer))
+              .then(() =&gt; socket.emit(&#39;offer&#39;, sala, localConnection.localDescription))
+
+            socket.on(&#39;answer&#39;, (description) =&gt; {
+              localConnection.setRemoteDescription(description)
+            })
+
+            socket.on(&#39;candidate&#39;, (candidate) =&gt; {
+              localConnection.addIceCandidate(candidate)
+            })
+          }
+        }
+      })
+    })
   })
   .catch((error) =&gt; console.error(error))
-
-setup.loadScript(&#39;https://cdn.socket.io/4.8.0/socket.io.min.js&#39;, () =&gt; {
-  let socket
-  if (window.location.host === &#39;feira-de-jogos.dev.br&#39;) {
-    socket = io({ path: &#39;/adcipt20242/socket.io/&#39; })
-  } else {
-    socket = io()
-  }
-
-  const sala = engine.state.get(&#39;sala&#39;)
-  console.log(&#39;sala&#39;, sala)
-
-  socket.on(&#39;connect&#39;, () =&gt; {
-    socket.emit(&#39;entrar-na-sala&#39;, sala)
-  })
-
-  socket.on(&#39;jogadores&#39;, (jogadores) =&gt; {
-    console.log(jogadores)
-    if (jogadores.segundo) {
-      if (jogadores.primeiro === socket.id) {
-        const remoteConnection = new RTCPeerConnection(iceServers)
-        const dadosJogo = remoteConnection.createDataChannel(&#39;dadosJogo&#39;, { negotiated: true, id: 0 })
-        console.log(&#39;remoteConnection&#39;, remoteConnection)
-        console.log(&#39;dadosJogo&#39;, dadosJogo)
-
-        remoteConnection.onicecandidate = function ({ candidate }) {
-          candidate &amp;&amp; socket.emit(&#39;candidate&#39;, sala, candidate)
-        }
-
-        remoteConnection.ontrack = function ({ streams: [midia] }) {
-          audio.srcObject = midia
-          console.log(&#39;audio.srcObject&#39;, audio.srcObject)
-        }
-
-        if (midias) {
-          midias.getTracks()
-            .forEach((track) =&gt; remoteConnection.addTrack(track, midias))
-        }
-
-        socket.on(&#39;offer&#39;, (description) =&gt; {
-          remoteConnection.setRemoteDescription(description)
-            .then(() =&gt; remoteConnection.createAnswer())
-            .then((answer) =&gt; remoteConnection.setLocalDescription(answer))
-            .then(() =&gt; socket.emit(&#39;answer&#39;, sala, remoteConnection.localDescription))
-        })
-
-        socket.on(&#39;candidate&#39;, (candidate) =&gt; {
-          remoteConnection.addIceCandidate(candidate)
-        })
-      } else if (jogadores.segundo === socket.id) {
-        const localConnection = new RTCPeerConnection(iceServers)
-        const dadosJogo = localConnection.createDataChannel(&#39;dadosJogo&#39;, { negotiated: true, id: 0 })
-        console.log(&#39;localConnection&#39;, localConnection)
-        console.log(&#39;dadosJogo&#39;, dadosJogo)
-
-        localConnection.onicecandidate = function ({ candidate }) {
-          candidate &amp;&amp; socket.emit(&#39;candidate&#39;, sala, candidate)
-        }
-
-        localConnection.ontrack = function ({ streams: [stream] }) {
-          audio.srcObject = stream
-          console.log(&#39;audio.srcObject&#39;, audio.srcObject)
-        }
-
-        if (midias) {
-          midias.getTracks()
-            .forEach((track) =&gt; localConnection.addTrack(track, midias))
-        }
-
-        localConnection.createOffer()
-          .then((offer) =&gt; localConnection.setLocalDescription(offer))
-          .then(() =&gt; socket.emit(&#39;offer&#39;, sala, localConnection.localDescription))
-
-        socket.on(&#39;answer&#39;, (description) =&gt; {
-          localConnection.setRemoteDescription(description)
-        })
-
-        socket.on(&#39;candidate&#39;, (candidate) =&gt; {
-          localConnection.addIceCandidate(candidate)
-        })
-      }
-    }
-  })
-})
 [continued]
 
-[[Introdução]] </tw-passagedata></tw-storydata></html>
+[[Introdução]] </tw-passagedata><tw-passagedata pid="15" name="Correr o mais rápido possível" tags="" position="850,1150" size="100,100">O trasgo alcança vocês e as matam
+
+Voltem ao início do jogo.
+
+[[Introdução]] </tw-passagedata><tw-passagedata pid="16" name="Lançar um feitiço no monstro" tags="" position="975,1150" size="100,100">-Petrificus Totalus! - grita Lumia com sua varinha apontada para o monstro 
+
+
+- Essa foi por pouco - diz Quinnie - Acha que será o suficiente para conte-lo, será que devemos… 
+
+
+- Matá-lo?- diz Lumia
+
+[[Matar o trasgo]]
+
+[[Deixar o trasgo petrificado]]
+
+</tw-passagedata><tw-passagedata pid="17" name="Matar o trasgo" tags="" position="975,1275" size="100,100">-Uma maldição imperdoável?- diz Quinnie
+
+
+-Não podemos… vamos acabar em Azkaban- diz lumia
+
+
+-Não se não descobrirem- Quinnie diz
+
+
+-Avada kedavra!- diz Quinnie
+
+O monstro morre.
+
+
+Quinnie e Lumia sobem as escadas em direção a luz e chegando lá as duas se deparam com uma sala com teias de aranha e um pouco assustadora. No centro da sala havia o que as duas tanto procuravam… A OBSIDIANA NEGRA
+
+[[Lançar o feitiço imperius para destruir o Objeto]]
+
+
+[[Lançar o feitiço Excidium Artefactum]]
+</tw-passagedata><tw-passagedata pid="18" name="Deixar o trasgo petrificado" tags="" position="1100,1275" size="100,100">Quinnie e Lumia sobem as escadas em direção a luz e chegando lá as duas se deparam com uma sala com teias de aranha e um pouco assustadora, no centro da sala havia o que as duas tanto procuravam… A OBSIDIANA NEGRA
+
+
+As duas erguem suas varinhas e verbalizam juntas:
+
+- Excidium Artefa…
+
+O monstro ressurge!!!
+
+- Como ele desfez o feitiço?- diz Quinnie
+
+- Ele deve ser muito poderoso!- diz Lumia
+
+Antes que Quinnie pudesse lançar um feitiço, o monstro ataca ela, e Lumia presencia a morte de sua melhor amiga. Ela lança um feitiço que atinge a obsidiana negra, porém como não era o feitiço de destruição que Quinnie havia descoberto no livro antigo, o feitiço ricocheteou e atingiu Lumia.
+
+Vocês morreram, voltem ao início.
+
+[[Introdução]] 
+
+</tw-passagedata><tw-passagedata pid="19" name="Lançar o feitiço imperius para destruir o Objeto" tags="" position="975,1400" size="100,100">Vocês lançaram o feitiço errado, não conseguiram destruir a obsidiana e levaram Magnus direto para a localização da obsidiana, pois ele estava perseguindo as duas pelas sombras.
+
+
+Volte ao início do jogo.
+
+
+[[Introdução]] </tw-passagedata><tw-passagedata pid="20" name="Lançar o feitiço Excidium Artefactum" tags="" position="1100,1400" size="100,100">As duas erguem suas varinhas e falam juntas:
+
+
+- Excidium Artefactum!
+
+
+Uma luz verde sai de suas varinhas e atinge o objeto e ele se desintegra.
+
+
+Parabéns, vocês conseguiram deter Magnus Frater e venceram o jogo!
+</tw-passagedata><tw-passagedata pid="21" name="Escolha da sala" tags="" position="625,175" size="100,100">{text input for: &#39;sala&#39;}
+
+
+[[escolha do jogador]] </tw-passagedata></tw-storydata></html>
