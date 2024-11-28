@@ -388,7 +388,7 @@ navigator.mediaDevices.getUserMedia({ video: false, audio: true })
         console.log(jogadores)
         if (jogadores.segundo) {
           if (jogadores.primeiro === socket.id) {
-          engine.state.set(jogador, &#39;primeiro&#39;)
+          engine.state.set(&#39;jogador&#39;, &#39;primeiro&#39;)
             const remoteConnection = new RTCPeerConnection(iceServers)
             const dadosJogo = remoteConnection.createDataChannel(&#39;dadosJogo&#39;, { negotiated: true, id: 0 })
             console.log(&#39;remoteConnection&#39;, remoteConnection)
@@ -417,7 +417,7 @@ navigator.mediaDevices.getUserMedia({ video: false, audio: true })
               remoteConnection.addIceCandidate(candidate)
             })
           } else if (jogadores.segundo === socket.id) {
-           engine.state.set(jogador, &#39;segundo&#39;)
+           engine.state.set(&#39;jogador&#39;, &#39;segundo&#39;)
             const localConnection = new RTCPeerConnection(iceServers)
             const dadosJogo = localConnection.createDataChannel(&#39;dadosJogo&#39;, { negotiated: true, id: 0 })
             console.log(&#39;localConnection&#39;, localConnection)
