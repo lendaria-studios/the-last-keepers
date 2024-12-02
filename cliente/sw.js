@@ -2,7 +2,7 @@ const cacheName = 'cache-v1'
 const precacheResources = [
     './',
     './index.html',
-    './capa.png',
+    './abertura.png',
 ]
 
 self.addEventListener('install', (event) => {
